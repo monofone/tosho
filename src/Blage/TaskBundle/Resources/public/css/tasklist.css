@@ -1,0 +1,47 @@
+/* 
+    Document   : tasklist
+    Created on : Jan 23, 2012, 3:12:11 PM
+    Author     : srohweder
+    Description:
+        Tasklist styles
+*/
+
+
+#msg{
+  padding: 3px 3px 1px 3px;
+  position:absolute;
+  background-color: yellowgreen;
+  display: none;
+}
+#msg.error{
+  background-color: #CC514F; 
+}
+ul.toshilist, ul.invitations{
+  list-style-type: none;
+}
+.invitations li{
+  margin: 2px 0 2px 0px;
+  padding: 2px 2px 2px 4px;
+}
+.invitations li.pending{
+  background-color: #CC514F;
+}
+.invitations li.accepted{
+  background-color: #6a9211;
+  cursor: pointer;
+}
+#toshidropzone{
+  margin: 20px 0px 30px 30px;
+}
+
+.toshidropzone{
+  width: 300px;
+  height: 30px;
+  border:3px  dashed #1379AC;
+  text-align: center;
+  display: table-cell;
+  vertical-align:  middle;
+}
+.toshidropzone.ui-state-droppable{
+  border-color: #6a9211;
+}

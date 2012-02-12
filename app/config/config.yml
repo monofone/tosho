@@ -1,0 +1,85 @@
+imports:
+    - { resource: parameters.ini }
+    - { resource: security.yml }
+    - { resource: '@BlageTaskBundle/Resources/config/services.xml' }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: en }
+    secret:          %secret%
+    charset:         UTF-8
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    session:
+        default_locale: %locale%
+        auto_start:     true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+      pusher_key: %pusher_key%
+      websocket_root: "http://playworld:3000"
+      websocket_js: "/socket.io/socket.io.js"
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    # java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        # closure:
+        #     jar: %kernel.root_dir%/java/compiler.jar
+        # yui_css:
+        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+
+jms_security_extra:
+    secure_controllers:  true
+    secure_all_services: false
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Blage\TaskBundle\Entity\User
+    registration:
+      form:
+        handler: blage_user.form.handler.registration
+
+fos_js_routing:
+    routes_to_expose: [ blage_task_default_index, blage_task_default_savetasks, add_toshi_to_list ]
+    
+blage_js_user:
+    mapped_fields: [ username ]
+
+lopi_pusher:
+    app_id: 14436
+    key: %pusher_key%
+    secret: cae88dca592e4e8ca3ce
+#    auth_service_id: xxx # optional if you want to use private or presence channels    

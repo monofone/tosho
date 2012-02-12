@@ -1,0 +1,29 @@
+{% extends 'BlageTaskBundle::layout.html.twig' %}
+{%block javascripts %}
+{{ parent() }}
+<script src="{{asset('bundles/blagetask/js/toshilist.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+<h3>{% trans %}Your toshies{% endtrans %}</h3>
+<ul class="toshilist">
+{% for toshi in toshies %}
+    <li><span>{{toshi.toshi.username}}</span> <a href="{{ path('tasklist_edit',{'username': toshi.toshi.username,'tasklistTitle': 'shopping'}) }}">Edit his List</a></li>
+{% else %}
+    <li class="placeholder">{% trans %}You have no toshis{% endtrans %}, <a href="{{path('toshi_invite')}}">{% trans %}invite someone{% endtrans %}</a> </li>
+{% endfor %}
+</ul>
+<div id="toshidropzone">
+  <div class="toshidropzone">
+    {% trans %}drop your accepted invitation here{% endtrans %}
+  </div>
+</div>
+<h3>{% trans %}Your invitations{% endtrans %}</h3>
+<ul class="invitations">
+{% for invitation in invitations %}
+    <li {% if invitation.toshi %}id="invitation-toshi-id-{{invitation.toshi.id}}"{% endif %}class="{% if invitation.toshi %}accepted{%else%}pending{%endif%}">{{invitation.invitationEmail}} | on {{invitation.invitationDate|date('d.m.Y')}}</li>
+{% else %}
+    <li class="none">{% trans %}You have no one invited{% endtrans %}, <a href="{{path('toshi_invite')}}">{% trans %}invite someone{% endtrans %}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}tosho.monofone.de{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
+    <script src="{{ asset('js/libs/modernizr-2.0.6.min.js') }}"></script>
+    <link href='http://fonts.googleapis.com/css?family=Rouge+Script|Sonsie+One' rel='stylesheet' type='text/css' />
+        {% block stylesheets %}{% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+  </head>
+  <body>
+    <div id="wrapper">
+    <header>
+      <div>
+        <h1><a href="{{path('blage_base_home_index')}}">tosho.monofone.de</a></h1>
+        <h2>your TOdo and SHOpping lists</h2>
+      </div>
+        <div id="additional">
+        {% render 'BlageBaseBundle:Home:user' %}
+        </div>
+        {% include 'BlageBaseBundle:Navigation:mainMenu.html.twig' %}
+    </header>
+        <div class="clearfix"></div>
+        {% block body %}
+        <div id="main"> 
+          <div id="content">
+            {% block content %}{% endblock %}
+          </div>
+          <div id="sidebar">
+            <h3>Newest</h3>
+            <p>New Idea, new service, new fun.</p>
+            {% block sidebar %}{% endblock %}
+          </div>
+        </div>
+        {% endblock %}
+   </div>
+   {% block javascripts %}
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{ asset('js/libs/jquery-1.6.2.min.js') }}"><\/script>')</script>
+   {% endblock %}
+  </body>
+</html>

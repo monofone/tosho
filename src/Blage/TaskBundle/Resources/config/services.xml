@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="blage_task.service.class">Blage\TaskBundle\Service\TaskService</parameter>
+        <parameter key="memcache_host">localhost</parameter>
+        <parameter key="memcache_port">11211</parameter>
+    </parameters>
+
+    <services>
+        <service id="blage_task.taskservice" class="%blage_task.service.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="lopi_pusher.pusher" />
+            <argument type="service" id="blage_task.memcache" />
+        </service>
+        <service id="blage_task.memcache" class="Memcached">
+          <call method="addServer">
+            <argument type="string">%memcache_host%</argument>
+            <argument type="string">%memcache_port%</argument>
+          </call>
+        </service>
+        
+        <service id="blage_user.form.handler.registration" class="Blage\TaskBundle\Form\RegistrationFormHandler" scope="request" public="false">
+            <argument type="service" id="fos_user.registration.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>        
+        
+    </services>
+</container>

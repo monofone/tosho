@@ -1,0 +1,8 @@
+{% extends 'BlageTaskBundle::layout.html.twig' %}
+{% block content %}
+<h3>{%trans%}Invite a friend{%endtrans%}</h3>
+<form action="{{path('toshi_invite')}}" method="post">
+{{form_widget(form)}}
+ <input type="submit" value="{%trans%}Invite{%endtrans%}" />
+</form>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'BlageTaskBundle::layout.html.twig' %}
+
+
+{%block content %}
+<div id="msg"></div>
+<h3>{{tasklist.listTitle}}</h3>
+{% if isEdit %}
+<form data-bind="submit: addTask">
+    Add task: <input data-bind="value: newTaskText" placeholder="What needs to be done?" />
+    <button type="submit">Add</button>
+</form>
+{% endif %}
+<ul data-bind="foreach: tasks, visible: tasks().length > 0">
+    <li>
+        <span data-bind="text: title, css: { done: isDone }, click: $parent.doneTask "></span>
+        {% if isEdit %}
+        <a href="#" data-bind="click: $parent.removeTask">Delete</a>
+        {% endif %}
+    </li> 
+  
+</ul>
+
+{% trans %}You have{% endtrans %} <b data-bind="text: incompleteTasks().length">&nbsp;</b> {% trans %}incomplete task(s){% endtrans %}
+<span data-bind="visible: incompleteTasks().length == 0"> - it's beer time!</span>
+{% if not isEdit %}
+<a class="action" href="{{path('tasklist_edit',{'username': app.user.username, 'tasklistTitle': tasklist.listTitle})}}">Edit List</a>
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+<script type="text/javascript" src="http://js.pusher.com/1.11/pusher.min.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/blagetask/js/taskmodel.js') }}"></script>
+<script type="text/javascript">
+  tasklistId = {{ tasklist.id }};
+  channelId = '{{ tasklist.listTitle }}';
+  pusher_api_key = '{{ pusher_key }}';
+  var taskArray = new Array();
+  {% for task in tasklist.tasks %}
+    taskArray.push(new Task({'id': {{task.id}},'isDone': '{{task.isDone}}','title':'{{task.title}}','tasklist_id': {{tasklist.id}} }));
+  {% endfor %}
+    viewModel.tasks(taskArray);
+</script>
+
+{% if not isEdit %}
+  <script type="text/javascript" src="{{ asset('bundles/blagetask/js/updatelistener.js') }}"></script>
+  <script type="text/javascript" src="{{ websocket_root }}{{ websocket_js }}"></script>
+  <script type="text/javascript">
+    var socket = io.connect('{{ websocket_root }}');
+    socket.emit('userConnect', { username: User.username, listId: tasklistId });
+  </script>
+{% endif %}
+  
+{% endblock %}
+

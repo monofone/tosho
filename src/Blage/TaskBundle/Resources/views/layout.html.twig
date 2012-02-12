@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{%block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{asset('bundles/blagetask/css/tasklist.css')}}" />
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="http://cloud.github.com/downloads/SteveSanderson/knockout/knockout-2.0.0.js"></script>
+<script type="text/javascript" src="{{ path('blage_js_user') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
+{% block sidebar %}
+<h3>Invite a Friend</h3>
+<p>Share your shoppinglist with your girlfriend. Tell your parents what to bye when you are at school!</p>
+<a href="{{path('toshi_invite')}}">Invite them.</a>
+{% endblock %}

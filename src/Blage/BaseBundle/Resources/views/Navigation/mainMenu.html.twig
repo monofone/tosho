@@ -1,0 +1,11 @@
+
+<nav>          
+  <div class="clearfix"></div>
+  <ul>
+    {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+      <li><a {% if app.request.get('_route') == 'tasklist_edit' or app.request.get('_route') == 'tasklist_view' or app.request.get('_route') == 'tasklists' %}class="current"{% endif %} href="{{path('tasklist_view',{'username': app.user.username, 'tasklistTitle':'shopping'})}}">MyList</a></li>
+      <li><a {% if app.request.get('_route') == 'toshi_list' %}class="current"{% endif %} href="{{path('toshi_list',{'username': app.user.username})}}">MyToshis</a></li>
+    {% endif %}
+      <li><a {% if app.request.get('_route') == 'about' %}class="current"{% endif %} href="{{path('about')}}">About tosho</a></li>
+  </ul>
+</nav>

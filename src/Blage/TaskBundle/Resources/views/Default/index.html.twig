@@ -1,0 +1,9 @@
+{% extends 'BlageTaskBundle::layout.html.twig' %}
+{% block content %}
+<h3>{{app.user.username}} {% trans %}lists{% endtrans %}</h3>
+  <ul>
+  {% for tasklist in tasklists %}
+      <li><a href="{{path('tasklist_view',{'username': app.request.get('username'),'tasklistTitle': tasklist.listTitle})}}">{{ tasklist.listTitle }}</a> <a href="{{ path('tasklist_edit',{ 'tasklistTitle': tasklist.listTitle, 'username': app.request.get('username') }) }}">edit</a></li>
+  {% endfor %}
+  </ul>    
+{% endblock %}
