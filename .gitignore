@@ -2,3 +2,6 @@ app/cache/*
 app/log/*
 vendor/*
 nbproject
+nodeapp/node_modules/memcached
+nodeapp/node_modules/nconf
+web/bundles/acmedemo
