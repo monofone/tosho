@@ -1,6 +1,6 @@
-{% if authOk %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 <div id="profileData">
-  <span>Hi <a class="action" href="{{path('fos_user_profile_edit')}}">{{ user.username }}</a></span>
+  <span>Hi <a class="action" href="{{path('fos_user_profile_edit')}}">{{ app.user.username }}</a></span>
   <span class="logout"><a class="action" href="{{path('fos_user_security_logout')}}">Logout</a></span>
 </div>
 {% else %}

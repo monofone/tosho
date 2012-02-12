@@ -22,13 +22,7 @@ class HomeController extends Controller
      */
     public function userAction()
     {
-        $authOk = $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY');
-        if($authOk){
-            $user = $this->get('security.context')->getToken()->getUser();
-            return array('authOk' => $authOk, 'user' => $user);
-        }
-        
-        return array('authOk' => false);
+        return array();
     }
     
     /**

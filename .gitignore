@@ -1,5 +1,5 @@
 app/cache/*
-app/log/*
+app/logs/*
 vendor/*
 nbproject
 nodeapp/node_modules/memcached
